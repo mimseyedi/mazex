@@ -12,12 +12,24 @@ import click
 import pickle
 import subprocess
 from pathlib import Path
-from prompt_toolkit.styles import Style
-from prompt_toolkit import PromptSession
-from prompt_toolkit.formatted_text import HTML
-from prompt_toolkit.completion import PathCompleter
-from prompt_toolkit.shortcuts import input_dialog, yes_no_dialog
-from prompt_toolkit.key_binding.bindings.basic import load_basic_bindings
+try:
+    from prompt_toolkit.styles import Style
+    from prompt_toolkit import PromptSession
+    from prompt_toolkit.formatted_text import HTML
+    from prompt_toolkit.completion import PathCompleter
+    from prompt_toolkit.shortcuts import input_dialog, yes_no_dialog
+    from prompt_toolkit.key_binding.bindings.basic import load_basic_bindings
+except ModuleNotFoundError:
+    subprocess.run([sys.executable, "-m", "pip", "install", "prompt-toolkit==3.0.16"], stdout=subprocess.DEVNULL)
+except ImportError:
+    subprocess.run([sys.executable, "-m", "pip", "install", "prompt-toolkit==3.0.16"], stdout=subprocess.DEVNULL)
+finally:
+    from prompt_toolkit.styles import Style
+    from prompt_toolkit import PromptSession
+    from prompt_toolkit.formatted_text import HTML
+    from prompt_toolkit.completion import PathCompleter
+    from prompt_toolkit.shortcuts import input_dialog, yes_no_dialog
+    from prompt_toolkit.key_binding.bindings.basic import load_basic_bindings
 
 
 @click.group()
